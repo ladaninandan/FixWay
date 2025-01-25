@@ -1,7 +1,28 @@
 {
   "expo": {
-    "name": "myapp",
-    "slug": "myapp",
-    "version": "1.0.0"
+    "name": "YourAppName",
+    "slug": "your-app-slug",
+    "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCSakqZ-MtS2_ElkIdlyTvnn9uLNuUCSgk"
+        }
+      }
+    },
+    "newArchEnabled": true,
+    "extra": {
+      "eas": {
+        "projectId": "b03fcf56-271f-4976-8449-e01946a4a8ce"
+      }
+    },
+    "plugins": [
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": true,
+          "supportsPictureInPicture": true
+        }
+      ]
+    ]
   }
 }

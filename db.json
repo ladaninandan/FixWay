@@ -1,0 +1,44 @@
+{
+   "users": [
+      {
+         "name": "Nandan",
+         "age": 22
+      },
+      {
+         "name": "Aarav",
+         "age": 25
+      },
+      {
+         "name": "Ishika",
+         "age": 20
+      },
+      {
+         "name": "Rohan",
+         "age": 28
+      },
+      {
+         "name": "Sanya",
+         "age": 23
+      },
+      {
+         "name": "Kavya",
+         "age": 24
+      },
+      {
+         "name": "Vihaan",
+         "age": 26
+      },
+      {
+         "name": "Ananya",
+         "age": 21
+      },
+      {
+         "name": "Arjun",
+         "age": 27
+      },
+      {
+         "name": "Tisha",
+         "age": 19
+      }
+   ]
+}
