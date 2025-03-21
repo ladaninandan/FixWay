@@ -17,7 +17,7 @@ const InputFieldFetchApi = () => {
    // }
 
    const handlesubmit = async () => {
-      const url = "http://192.168.128.73:3000/user";
+      const url = "http://192.168.69.73:3000/user";
       let result = await fetch(url, {
          method: 'POST',
          headers: {
@@ -36,7 +36,7 @@ const InputFieldFetchApi = () => {
 
    useEffect(() => {
       const fatchdata = async () => {
-         const url = "http://192.168.128.73:3000/user";
+         const url = "http://192.168.69.73:3000/user";
          const result = await fetch(url);
          const response = await result.json();
 

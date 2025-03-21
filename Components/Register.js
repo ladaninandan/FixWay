@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import Modal from "react-native-modal";
@@ -5,7 +6,7 @@ import Modal from "react-native-modal";
 const Register = (props) => {
    const [name, setName] = useState('');
    const [password, setPassword] = useState('');
-   const [confirmpassword, setconfirmpassword] = useState('');
+   const [conformPassword, setconformPassword] = useState('');
    const [number, setNumber] = useState('');
    const [focusedField, setFocusedField] = useState('');
 
@@ -16,14 +17,6 @@ const Register = (props) => {
       setModalVisible(false);
    };
 
-
-   const handlesubmit = async () => {
-      const isValid = await handlevalidation();
-
-      if (isValid) {
-         props.navigation.navigate("Login"); // Navigate only if validation passes
-      }
-   };
 
    const handlenumber = (value) => {
       const numericValue = value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
@@ -38,45 +31,51 @@ const Register = (props) => {
       if (name.trim() === '') {
          setmessage('Please enter your Name');
          setModalVisible(true);
+         return false;
       }
 
       if (password.trim() === '') {
          setmessage("Please enter your password");
          setModalVisible(true);
+         return false;
       }
 
       if (number.trim() === '') {
          setmessage("Please enter your Number");
          setModalVisible(true);
+         return false;
       }
 
       if (number.length <= 9) {
          setmessage("enter your number 10 number");
          setModalVisible(true);
+         return false;
       };
 
       if (password.length <= 8) {
          setmessage("enter your password min 8 char");
          setModalVisible(true);
+         return false;
       };
 
-      if (confirmpassword.length <= 8) {
+      if (conformPassword.length <= 8) {
          setmessage("enter your confirm password min 8 char");
          setModalVisible(true);
+         return false;
       };
 
 
-      if (password !== confirmpassword) {
+      if (password !== conformPassword) {
          setmessage("password and conformpassword not match");
          setModalVisible(true);
-         return;
+         return false;
       }
 
 
       if (!/\d/.test(password)) {
          setmessage("Password must include at least one number.");
          setModalVisible(true);
-         return;
+         return false;
       }
 
       if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
@@ -84,30 +83,58 @@ const Register = (props) => {
             "Password must include at least one special character."
          );
          setModalVisible(true);
-         return;
+         return false;
       };
 
-      if (!/\d/.test(confirmpassword)) {
+      if (!/\d/.test(conformPassword)) {
          setmessage("confirm password must include at least one number.");
          setModalVisible(true);
-         return;
+         return false;
       }
 
-      if (!/[!@#$%^&*(),.?":{}|<>]/.test(confirmpassword)) {
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(conformPassword)) {
          setmessage(
             "confirm password must include at least one special character."
          );
          setModalVisible(true);
-         return;
+         return false;
       };
 
       return true;
    }
 
-   const handlesignin = () => {
-      props.navigation.navigate("Login");
+   const handlesignin = async () => {
+
    }
 
+
+   const handlesubmit = async () => {
+      const isValid = await handlevalidation();
+
+      if (isValid) {
+         try {
+            const response = await axios.post("http://192.168.69.73:5000/api/user/UserRegister",
+               { name, password, conformPassword, number },
+               { headers: { "Content-Type": "application/json" } }
+            );
+
+            if (response.status === 200) {
+               console.log("user register successful", response.data)
+               props.navigation.navigate("Login");
+            } else {
+               console.log("unexpected response", response.data)
+            }
+
+         } catch (error) {
+            console.log("error during  registration validation ", error.response ? error.response.data : error.message);
+            // Extract error message from backend
+            const errorMsg = error.response ? error.response.data.message : "Something went wrong!";
+            setmessage(errorMsg);
+            setModalVisible(true);
+         }
+         console.log(name, password, conformPassword, number)
+      }
+   };
 
    return (
       <KeyboardAvoidingView
@@ -152,13 +179,13 @@ const Register = (props) => {
                <Text style={styles.label}>Confirm password:</Text>
                <TextInput
                   style={[styles.input,
-                  focusedField === 'confirmpassword' && styles.focusedFieldcontainer
+                  focusedField === 'conformPassword' && styles.focusedFieldcontainer
                   ]}
                   placeholder="Enter your confirm password"
                   placeholderTextColor="#888"
-                  value={confirmpassword}
-                  onChangeText={value => setconfirmpassword(value)}
-                  onFocus={() => { setFocusedField('confirmpassword') }}
+                  value={conformPassword}
+                  onChangeText={value => setconformPassword(value)}
+                  onFocus={() => { setFocusedField('conformPassword') }}
                />
                {/* <Text style={styles.output}>Hello, {text || 'Stranger'}!</Text> */}
                <Text style={styles.label}>Number:</Text>

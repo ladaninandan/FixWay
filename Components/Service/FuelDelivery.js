@@ -16,38 +16,9 @@ import * as Location from 'expo-location';
 import Loding from '.././loding/Loding';
 import BottomSheet from 'react-native-simple-bottom-sheet';
 import Close from "react-native-vector-icons/AntDesign";
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('window');
-
-const petrolStations = [
-   {
-      "id": 1, "latitude": 21.3012, "longitude": 70.2499, "title": "Petrol Pump 1", address: "Station Road, City A", rating: 4.5, services: ["Fuel Refill", "Air Pump", "Restroom"], fuelType: [
-         { type: "Normal petrol", price: 102 },
-         { type: "Premium petrol", price: 112 },
-         { type: "Extra premium petrol", price: 120 }
-      ],
-   },
-   {
-      "id": 2, "latitude": 22.7038, "longitude": 72.9790, "title": "Petrol Pump 2", rating: 4.2,
-      address: "Main Market, City B",
-      services: ["Fuel Refill", "Restroom"],
-      fuelType: [
-         { type: "Normal petrol", price: 102 },
-         { type: "Premium petrol", price: 112 },
-         { type: "Extra premium petrol", price: 120 }
-      ],
-   },
-   {
-      "id": 3, "latitude": 21.3012, "longitude": 70.2889, "title": "Petrol Pump 3", rating: 4.8,
-      address: "Highway Exit 5, City C",
-      services: ["Fuel Refill", "Air Pump", "Car Wash", "Restroom"],
-      fuelType: [
-         { type: "Normal petrol", price: 102 },
-         { type: "Premium petrol", price: 112 },
-         { type: "Extra premium petrol", price: 120 }
-      ],
-   }
-];
 
 export default function FuelDelivery(props) {
    const [modalVisible, setModalVisible] = useState(false);
@@ -56,6 +27,24 @@ export default function FuelDelivery(props) {
    const [searchQuery, setSearchQuery] = useState('');
    const [routeCoordinates, setRouteCoordinates] = useState([]);
    const [loading, setLoading] = useState(true);
+   const [petrolStations, setPetrolStations] = useState([]);
+
+   // API call to fetch all fuel stations
+   useEffect(() => {
+      const getFuelData = async () => {
+         try {
+            const response = await axios.get("http://192.168.69.73:5000/AdminAdd/getFuleData");
+            if (Array.isArray(response.data)) {
+               setPetrolStations(response.data);
+            } else {
+               console.error("Error: Expected an array but got:", response.data);
+            }
+         } catch (error) {
+            console.error("Error fetching fuel data:", error);
+         }
+      };
+      getFuelData();
+   }, []);
 
    useEffect(() => {
       const getLocation = async () => {
@@ -107,7 +96,7 @@ export default function FuelDelivery(props) {
             console.log(`Station "${station.title}" is within ${range} km range. Distance: ${distance.toFixed(2)} km`);
          }
       });
-   }, [calculateDistance]);
+   }, [calculateDistance, petrolStations]);
 
    const handleSearch = useCallback(async () => {
       try {
@@ -132,7 +121,7 @@ export default function FuelDelivery(props) {
    }, []);
 
    const calculateETA = useCallback((distance) => {
-      const speed = 40;
+      const speed = 20;
       const time = distance / speed;
       const hours = Math.floor(time);
       const minutes = Math.round((time - hours) * 60);
@@ -191,7 +180,7 @@ export default function FuelDelivery(props) {
 
          props.navigation.navigate("FuelStationList", { nearbyStations });
       }
-   }, [currentLocation, calculateDistance, calculateETA]);
+   }, [currentLocation, calculateDistance, calculateETA, petrolStations]);
 
    if (loading) {
       return (
@@ -224,7 +213,7 @@ export default function FuelDelivery(props) {
                showsUserLocation={true}
                followsUserLocation={true}
             >
-               {petrolStations.map(station => (
+               {Array.isArray(petrolStations) && petrolStations.map(station => (
                   <Marker
                      key={station.id}
                      coordinate={{ latitude: station.latitude, longitude: station.longitude }}
@@ -275,7 +264,7 @@ export default function FuelDelivery(props) {
                   showsUserLocation={true}
                   followsUserLocation={true}
                >
-                  {petrolStations.map(station => (
+                  {Array.isArray(petrolStations) && petrolStations.map(station => (
                      <Marker
                         key={station.id}
                         coordinate={{
@@ -400,6 +389,7 @@ const styles = StyleSheet.create({
    search: {
       backgroundColor: 'lightgray',
    },
+
    Closebuttoncontainer: {
       position: 'absolute',
       backgroundColor: 'white',

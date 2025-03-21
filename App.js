@@ -1,5 +1,7 @@
 import { StyleSheet, StatusBar } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import "./global.css";
+import * as SplashScreen from "expo-splash-screen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FuelDelivery from './Components/Service/FuelDelivery';
 import { NavigationContainer } from '@react-navigation/native';
@@ -35,10 +37,33 @@ import WashingMachine from './Components/Service/ElectronicServices/WashingMachi
 import Computer from './Components/Service/ElectronicServices/Computer';
 import Refrigerator from './Components/Service/ElectronicServices/Refrigerator';
 import OtherDevice from './Components/Service/ElectronicServices/OtherDevice';
+import MechanicServicesHome from './Components/Service/MechanicServices/MechanicServicesHome';
+import SplashScreenComponent from "./Components/SplashScreen";
 
 const App = () => {
   const Stack = createNativeStackNavigator();
-  return (
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  // // Prevent the splash screen from auto-hiding
+  // SplashScreen.preventAutoHideAsync();
+
+
+  // useEffect(() => {
+  //   async function prepareApp() {
+  //     // Simulate loading (e.g., fetching user data, assets, etc.)
+  //     await new Promise(resolve => setTimeout(resolve, 2000));
+
+  //     // Hide the splash screen
+  //     await SplashScreen.hideAsync();
+  //   }
+
+  //   prepareApp();
+  // }, []);
+
+  return isLoading ? (
+    <SplashScreenComponent onAnimationEnd={() => setIsLoading(false)} />
+  ) : (
     <NavigationContainer >
       <StatusBar
         backgroundColor="black"  // Sets the background color of the status bar
@@ -54,17 +79,16 @@ const App = () => {
         // },
       }}>
 
-        {/* <Stack.Screen name='Beforlogin' component={Beforlogin} />
+        <Stack.Screen name='Beforlogin' component={Beforlogin} />
         <Stack.Screen name='Login' component={Login} />
         <Stack.Screen name='Register' component={Register} />
         <Stack.Screen name='Emailuser' component={Emailuser} />
-        <Stack.Screen name='Emailverification' component={Emailverification} /> */}
+        <Stack.Screen name='Emailverification' component={Emailverification} />
         {/* <Stack.Screen name='Forgetpassword' component={Forgetpassword} /> */}
         {/* <Stack.Screen name='Congratulation' component={Congratulation} /> */}
         {/* <Stack.Screen name='Loding' component={Loding} /> */}
-        {/*
-        <Stack.Screen name='EditProfile' component={EditProfile} /> */}
-        {/* <Stack.Screen name='ProfilePage' component={ProfilePage} /> */}
+
+        {/* <Stack.Screen name='EditProfile' component={EditProfile} /> */}
 
         {/* test */}
         {/* <Stack.Screen name='Listallapi' component={Listallapi} /> */}
@@ -75,7 +99,7 @@ const App = () => {
 
         {/* service  */}
         <Stack.Screen name="Home" component={Home} />
-        {/* <Stack.Screen name='Electronicservices' component={Electronicservices} />
+        <Stack.Screen name='Electronicservices' component={Electronicservices} />
         <Stack.Screen name='TVservice' component={TVservice} />
         <Stack.Screen name='BookingScreen' component={BookingScreen} />
         <Stack.Screen name='ServiceElectronicsList' component={ServiceElectronicsList} />
@@ -83,15 +107,16 @@ const App = () => {
         <Stack.Screen name='WashingMachine' component={WashingMachine} />
         <Stack.Screen name='Computer' component={Computer} />
         <Stack.Screen name='Refrigerator' component={Refrigerator} />
-        <Stack.Screen name='OtherDevice' component={OtherDevice} /> */}
+        <Stack.Screen name='OtherDevice' component={OtherDevice} />
         <Stack.Screen name='SummaryPage' component={SummaryPage} />
+        {/* <Stack.Screen name='ProfilePage' component={ProfilePage} /> */}
 
         {/* fule */}
         <Stack.Screen name="FuelDelivery" component={FuelDelivery} />
         <Stack.Screen name="FuelStationList" component={FuelStationList} />
         <Stack.Screen name="StationDetails" component={StationDetails} />
         <Stack.Screen name='UserForm' component={UserForm} />
-        {/* <Stack.Screen name='CartPage' component={CartPage} />  */}
+        <Stack.Screen name='CartPage' component={CartPage} />
 
         {/* <Stack.Screen name='Location' component={Location} /> */}
 
@@ -100,9 +125,9 @@ const App = () => {
         {/* <Stack.Screen name='Userlist' component={Userlist} /> */}
 
 
-        {/* sqlite */}
-        {/* <Stack.Screen name='UserSql' component={UserSql} />
-        <Stack.Screen name='HomeSql' component={HomeSql} /> */}
+        {/* MechanicServices */}
+        <Stack.Screen name='MechanicServicesHome' component={MechanicServicesHome} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

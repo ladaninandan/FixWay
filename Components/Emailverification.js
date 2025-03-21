@@ -1,10 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, StyleSheet, Image, TextInput, Alert } from "react-native";
 import Modal from "react-native-modal";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 
-const Emailverification = (props) => {
+const Emailverification = ({ route }) => {
+   const { email } = route.params;
+   const navigation = useNavigation()
 
    const [otp, setOtp] = useState(''); // Store OTP input
    const otpLength = 4; // Define the OTP length
@@ -19,15 +23,25 @@ const Emailverification = (props) => {
       }
    };
 
-   const handleSubmit = () => {
-      if (otp.length === otpLength) {
-         props.navigation.navigate("Register");
-         // Perform OTP validation (e.g., API call)
-         console.log('Verifying OTP:', otp);
-      } else {
-         console.log('Please enter the complete OTP.');
+   const handleSubmit = async () => {
+      try {
+         const response = await axios.post("http://192.168.69.73:5000/api/verify-otp",
+            { email, otp },
+            { headers: { "Content-Type": "application/json" } }
+         );
+         // hendle response
+         if (response.status === 200) {
+            console.log("otp verifaction successful :", response.data);
+            navigation.navigate("Register");
+         } else {
+            console.log("unexpected response", response.data);
+         }
 
-      }
+      } catch (error) {
+         console.log("error during otp varifaction ", error.response ? error.response.data : error.message)
+      };
+
+      console.log('Verifying OTP:', otp);
    };
 
    // resend otp 
@@ -62,7 +76,7 @@ const Emailverification = (props) => {
             </View>
             <View style={styles.email}>
                <Text style={styles.textemail}>
-                  {props.route.params.email}
+                  {email}
                </Text>
             </View>
 

@@ -95,6 +95,47 @@ const Computer = () => {
             ],
             rating: 4.7,
          },
+         {
+            id: 3,
+            latitude: 22.3295,
+            longitude: 73.1818,
+            price: 600,
+            serviceName: "PC Doctor",
+            location: "Sector 21, Gandhinagar, Gujarat",
+            contactNumber: "+91 9212345678",
+            amenities: [
+               "System Cleaning",
+               "Driver Installation",
+               "Hardware Troubleshooting",
+               "Network Setup",
+            ],
+            workingHours: "9:00 AM - 7:00 PM",
+            services: [
+               "PC Repair",
+               "Software Troubleshooting",
+               "Networking Solutions",
+               "RAM & SSD Upgrades",
+            ],
+            paymentMethods: [
+               "Cash",
+               "UPI",
+               "Bank Transfers",
+            ],
+            loyaltyProgram: "10% off for first-time users",
+            reviews: [
+               {
+                  customer: "Anjali Rana",
+                  rating: 4.8,
+                  comment: "Reliable and fast service.",
+               },
+               {
+                  customer: "Vikram Joshi",
+                  rating: 4.6,
+                  comment: "Great job on fixing my PC.",
+               },
+            ],
+            rating: 4.7,
+         },
       ],
       ComputerRepair: [
          {
@@ -350,7 +391,6 @@ const Computer = () => {
          </View>
 
          {/* Service Cards */}
-
          <View style={styles.cardContainer}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                {serviceData.map((item) =>
@@ -368,7 +408,6 @@ const Computer = () => {
                )}
             </ScrollView>
          </View>
-
          {/* Testimonials Section */}
          <View style={styles.testimonialSection}>
             <Text style={styles.sectionTitle}>Customer Testimonials</Text>

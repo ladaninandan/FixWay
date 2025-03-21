@@ -95,6 +95,47 @@ const Acrepair = () => {
             ],
             rating: 4.7,
          },
+         {
+            id: 3,
+            latitude: 22.3295,
+            longitude: 73.1818,
+            price: 250,
+            serviceName: "Smart AC Care",
+            location: "Sector 21, Gandhinagar, Gujarat",
+            contactNumber: "+91 9212345678",
+            amenities: [
+               "Dust Removal",
+               "Temperature Calibration",
+               "Gas Refill",
+               "Compressor Check",
+            ],
+            workingHours: "9:00 AM - 7:00 PM",
+            services: [
+               "Split AC Servicing",
+               "Window AC Maintenance",
+               "Smart AC Diagnostics",
+               "Gas Top-up",
+            ],
+            paymentMethods: [
+               "Cash",
+               "UPI",
+               "Bank Transfers",
+            ],
+            loyaltyProgram: "10% off for first-time users",
+            reviews: [
+               {
+                  customer: "Anjali Rana",
+                  rating: 4.8,
+                  comment: "Quick and reliable service. Highly recommended!",
+               },
+               {
+                  customer: "Vikram Joshi",
+                  rating: 4.6,
+                  comment: "Good value for money.",
+               },
+            ],
+            rating: 4.7,
+         },
       ],
       AcRepair: [
          {
@@ -267,25 +308,6 @@ const Acrepair = () => {
    };
 
 
-   // Testimonial data
-   const testimonialData = [
-      {
-         id: 1,
-         text: "Excellent service! My Ac was repaired within an hour. Highly recommend!",
-         author: "John Doe",
-      },
-      {
-         id: 2,
-         text: "Fast and reliable! The technician was professional and fixed the issue quickly.",
-         author: "Jane Smith",
-      },
-      {
-         id: 3,
-         text: "Great experience! My Ac was fixed on the spot, and the customer service was top-notch.",
-         author: "Michael Johnson",
-      },
-   ];
-
 
    const serviceData = [
       {
@@ -310,6 +332,25 @@ const Acrepair = () => {
       },
    ];
 
+
+   // Testimonial data
+   const testimonialData = [
+      {
+         id: 1,
+         text: "Excellent service! My Ac was repaired within an hour. Highly recommend!",
+         author: "John Doe",
+      },
+      {
+         id: 2,
+         text: "Fast and reliable! The technician was professional and fixed the issue quickly.",
+         author: "Jane Smith",
+      },
+      {
+         id: 3,
+         text: "Great experience! My Ac was fixed on the spot, and the customer service was top-notch.",
+         author: "Michael Johnson",
+      },
+   ];
 
    const handleclick = (item) => {
       console.log(item.id)

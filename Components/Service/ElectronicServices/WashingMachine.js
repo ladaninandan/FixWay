@@ -95,6 +95,47 @@ const WashingMachine = () => {
             ],
             rating: 4.7,
          },
+         {
+            id: 3,
+            latitude: 22.3295,
+            longitude: 73.1818,
+            price: 200,
+            serviceName: "Smart Washing Machine Care",
+            location: "Sector 15, Gandhinagar, Gujarat",
+            contactNumber: "+91 9212345678",
+            amenities: [
+               "Filter Replacement",
+               "Pump Cleaning",
+               "Belt Adjustment",
+               "Leak Fix",
+            ],
+            workingHours: "9:00 AM - 7:00 PM",
+            services: [
+               "Washing Machine Servicing",
+               "Water Leak Prevention",
+               "Belt Tension Adjustment",
+               "Filter Cleaning",
+            ],
+            paymentMethods: [
+               "Cash",
+               "UPI",
+               "Bank Transfers",
+            ],
+            loyaltyProgram: "10% off for first-time users",
+            reviews: [
+               {
+                  customer: "Amit Rathi",
+                  rating: 4.8,
+                  comment: "Very fast and professional service!",
+               },
+               {
+                  customer: "Sushma Gupta",
+                  rating: 4.6,
+                  comment: "Good value for the price.",
+               },
+            ],
+            rating: 4.7,
+         },
       ],
       WashingMachineRepair: [
          {

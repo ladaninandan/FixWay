@@ -6,20 +6,37 @@ import {
    StyleSheet,
    Image,
    TextInput,
+   Dimensions
 } from 'react-native';
 import Modal from "react-native-modal";
-
+import axios from 'axios';
+const { width, height } = Dimensions.get('window');
 
 const Login = (props) => {
    const [email, setemail] = useState('');
-   const [Password, setPassword] = useState('');
+   const [password, setPassword] = useState('');
    const [focusedField, setFocusedField] = useState('');
 
-   const Handlesubmit = () => {
+
+   const Handlesubmit = async () => {
       const isValid = handlevalidation();
 
       if (isValid) {
-         props.navigation.navigate("Home"); // Navigate only if validation passes
+         try {
+            const response = await axios.post("http://192.168.69.73:5000/user/Login",
+               { email, password },
+               { headers: { "Content-Type": "application/json" } }
+            );
+
+            if (response.status === 200) {
+               console.log("Login successful ", response.data)
+               props.navigation.navigate("Home"); // Navigate only if validation passes
+            } else {
+               console.log("unexpected response", response.data)
+            }
+         } catch (error) {
+            console.log("error during login ", error.response ? error.response.data : error.message);
+         }
       }
    };
 
@@ -44,7 +61,7 @@ const Login = (props) => {
          return;
       }
 
-      if (Password.trim() === '') {
+      if (password.trim() === '') {
          setmessage("Please enter your password.");
          setModalVisible(true);
          return;
@@ -56,21 +73,20 @@ const Login = (props) => {
          return;
       }
 
-      if (Password.length < 8) {
+      if (password.length < 8) {
          setmessage("Password must be at least 8 characters long");
          setModalVisible(true);
          return;
       }
 
-      if (!/\d/.test(Password)) {
+      if (!/\d/.test(password)) {
          setmessage("Password must include at least one number.");
          setModalVisible(true);
          return;
       }
 
-      if (!/[!@#$%^&*(),.?":{}|<>]/.test(Password)) {
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
          setmessage(
-            "Validation Error",
             "Password must include at least one special character."
          );
          setModalVisible(true);
@@ -92,7 +108,7 @@ const Login = (props) => {
       <View >
          <View style={styles.imageContainer}>
             <Image
-               source={require('../img/Ellipse8.png')} // Replace with your image path
+               // source={require('../img/Ellipse8.png')} // Replace with your image path
                style={styles.imageStyle}
             />
             <View style={styles.textOverlay}>
@@ -122,7 +138,7 @@ const Login = (props) => {
                   placeholder="Enter your Password"
                   placeholderTextColor="gray"
                   secureTextEntry={true}
-                  value={Password}
+                  value={password}
                   onChangeText={value => setPassword(value)}
                   onFocus={() => { setFocusedField("password") }}
                />
@@ -194,9 +210,12 @@ const styles = StyleSheet.create({
       marginBottom: 60,
    },
    imageStyle: {
-      width: 364,
-      height: 200,
+      width: width * 1.15,
+      height: height * 0.26,
       resizeMode: 'contain',
+      backgroundColor: '#327701',
+      borderBottomLeftRadius: 200,
+      borderBottomRightRadius: 200
    },
    inputContainerFocused: {
       borderColor: 'gray',

@@ -14,8 +14,8 @@ const TVservice = () => {
       TvService: [
          {
             id: 1,
-            latitude: 21.2808817,
-            longitude: 70.212965,
+            latitude: 22.6916,
+            longitude: 72.8634,
             price: 200,
             serviceName: "TV Service Hub",
             location: "Near ABC Plaza, Ahmedabad, Gujarat",
@@ -55,8 +55,49 @@ const TVservice = () => {
          },
          {
             id: 2,
-            latitude: 21.3009817,
-            longitude: 71.232975,
+            latitude: 22.3245,
+            longitude: 73.1818,
+            price: 250,
+            serviceName: "Smart TV Care",
+            location: "Sector 21, Gandhinagar, Gujarat",
+            contactNumber: "+91 9212345678",
+            amenities: [
+               "Dust Removal",
+               "Screen Brightness Adjustment",
+               "Firmware Updates",
+               "Sound Calibration",
+            ],
+            workingHours: "9:00 AM - 7:00 PM",
+            services: [
+               "OLED TV Maintenance",
+               "Smart TV Diagnostics",
+               "Software Patching",
+               "Remote Configuration",
+            ],
+            paymentMethods: [
+               "Cash",
+               "UPI",
+               "Bank Transfers",
+            ],
+            loyaltyProgram: "10% off for first-time users",
+            reviews: [
+               {
+                  customer: "Anjali Rana",
+                  rating: 4.8,
+                  comment: "Quick and reliable service. Highly recommended!",
+               },
+               {
+                  customer: "Vikram Joshi",
+                  rating: 4.6,
+                  comment: "Good value for money.",
+               },
+            ],
+            rating: 4.7,
+         },
+         {
+            id: 3,
+            latitude: 22.6023,
+            longitude: 72.8205,
             price: 250,
             serviceName: "Smart TV Care",
             location: "Sector 21, Gandhinagar, Gujarat",

@@ -87,13 +87,15 @@ const Home = (props) => {
             return;
          }
 
-         // Get the current location
-         const location = await Location.getCurrentPositionAsync({});
+         // Get the current location with high accuracy
+         const location = await Location.getCurrentPositionAsync({
+            accuracy: Location.Accuracy.High,
+         });
          const { latitude, longitude } = location.coords;
 
          // Use a geocoding API to fetch the address
          const response = await fetch(
-            `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=677965481a774beeb3fcc4ee55a127ab`
+            `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=677965481a774beeb3fcc4ee55a127ab&language=en&pretty=1`
          );
          const data = await response.json();
          const currentAddress = data.results[0]?.formatted || "Unable to fetch address";
@@ -106,6 +108,7 @@ const Home = (props) => {
          setLoading(false);
       }
    };
+
 
    useEffect(() => {
       fetchAddress()
@@ -283,7 +286,7 @@ const Home = (props) => {
                         <Text style={styles.imgintext}>Electronic services</Text>
                      </TouchableOpacity>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.imginner} onPress={() => { props.navigation.navigate('MechanicServices') }}>
+                  <TouchableOpacity style={styles.imginner} onPress={() => { props.navigation.navigate('MechanicServicesHome') }}>
                      <Image
                         source={require('../img/HomeMechanicService.jpg')}
                         style={styles.img}

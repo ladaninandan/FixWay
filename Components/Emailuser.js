@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, TextInput, KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import Modal from "react-native-modal";
+import axios from 'axios';
 
 const Register = (props) => {
    const [email, setEmail] = useState('');
@@ -16,10 +17,25 @@ const Register = (props) => {
 
    const handlesubmit = async () => {
       const isValid = await handlevalidation();
-
       if (isValid) {
          // console.log("Navigating to Emailverification with email:", email);
-         props.navigation.navigate("Emailverification", { email }); // Navigate only if validation passes
+         try {
+            // Send API request to verify email
+            const response = await axios.post("http://192.168.69.73:5000/api/send-otp",
+               { email },
+               { headers: { "Content-Type": "application/json" } })
+
+            // Handle success response
+            if (response.status === 200) {
+               console.log("email verifaction successful:", response.data);
+               props.navigation.navigate("Emailverification", { email }); // Navigate only if validation passes
+            } else {
+               console.log("Unexpected responce", response.data)
+            }
+         } catch (error) {
+            console.error("error during  email verifaction ", error.response ? error.response.data : error.message)
+         }
+
       } else {
          console.log("Validation failed, not navigating");
       }

@@ -42,6 +42,35 @@ const OtherDevice = () => {
             ],
             rating: 4.55,
          },
+         {
+            id: 2,
+            latitude: 22.3295,
+            longitude: 73.1818,
+            price: 400,
+            serviceName: "FixIt Mobile Services",
+            location: "Connaught Place, Delhi",
+            contactNumber: "+91 9988776655",
+            amenities: [
+               "Screen Replacement",
+               "Battery Replacement",
+               "Software Update",
+               "Camera Repair",
+            ],
+            workingHours: "10:00 AM - 8:00 PM",
+            services: [
+               "Mobile Diagnostics",
+               "Performance Boost",
+               "Water Damage Repair",
+               "Charging Port Fix",
+            ],
+            paymentMethods: ["Cash", "UPI", "Credit Cards"],
+            loyaltyProgram: "5% discount on the next visit for referrals",
+            reviews: [
+               { customer: "Rahul Singh", rating: 4.5, comment: "Great service!" },
+               { customer: "Neha Kapoor", rating: 4.6, comment: "Quick repair." },
+            ],
+            rating: 4.55,
+         },
       ],
       LaptopService: [
          {

@@ -95,6 +95,47 @@ const Refrigerator = () => {
             ],
             rating: 4.7,
          },
+         {
+            id: 3,
+            latitude: 22.3295,
+            longitude: 73.1818,
+            price: 900,
+            serviceName: "ChillMate Refrigerator Repair",
+            location: "Andheri West, Mumbai, Maharashtra",
+            contactNumber: "+91 8765432190",
+            amenities: [
+               "Ice Maker Repair",
+               "Door Seal Replacement",
+               "Defrost System Repair",
+               "Fan Motor Replacement",
+            ],
+            workingHours: "10:00 AM - 8:00 PM",
+            services: [
+               "Refrigerator Troubleshooting",
+               "Gas Leakage Fix",
+               "Compressor Replacement",
+               "Energy Efficiency Check",
+            ],
+            paymentMethods: [
+               "Cash",
+               "UPI",
+               "Digital Wallets",
+            ],
+            loyaltyProgram: "Free gas check on the third service",
+            reviews: [
+               {
+                  customer: "Sneha Kapoor",
+                  rating: 4.8,
+                  comment: "Professional and affordable service. Great experience!",
+               },
+               {
+                  customer: "Amit Khanna",
+                  rating: 4.6,
+                  comment: "Resolved the cooling issue quickly and professionally.",
+               },
+            ],
+            rating: 4.7,
+         },
       ],
       RefrigeratorRepair: [
          {
